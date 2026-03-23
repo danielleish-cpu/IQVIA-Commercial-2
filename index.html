@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IQVIA x Glean | Enterprise AI Perspective Brief</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  :root {
+    --navy: #0B1D3A; --dark-blue: #132D5E; --accent-blue: #2563EB; --accent-teal: #0EA5E9;
+    --light-bg: #F8FAFC; --card-bg: #FFFFFF; --text-primary: #1E293B; --text-secondary: #475569;
+    --text-light: #94A3B8; --border: #E2E8F0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: var(--light-bg); color: var(--text-primary); line-height: 1.7; font-size: 15px; }
+
+  .hero { background: linear-gradient(135deg, var(--navy) 0%, var(--dark-blue) 60%, #1e40af 100%); color: white; padding: 80px 0 60px; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -50%; right: -20%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(37,99,235,0.15) 0%, transparent 70%); border-radius: 50%; }
+  .hero .container { position: relative; z-index: 1; }
+  .hero-label { font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-teal); margin-bottom: 16px; }
+  .hero h1 { font-size: 42px; font-weight: 700; line-height: 1.2; margin-bottom: 20px; max-width: 700px; }
+  .hero h1 span { color: var(--accent-teal); }
+  .hero-subtitle { font-size: 17px; color: rgba(255,255,255,0.75); max-width: 600px; line-height: 1.7; font-weight: 300; }
+  .hero-meta { margin-top: 32px; display: flex; gap: 32px; font-size: 13px; color: rgba(255,255,255,0.5); }
+  .container { max-width: 960px; margin: 0 auto; padding: 0 32px; }
+  section { padding: 56px 0; }
+  .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 12px; }
+  .section-title { font-size: 28px; font-weight: 700; line-height: 1.3; margin-bottom: 8px; color: var(--navy); }
+  .section-subtitle { font-size: 15px; color: var(--text-secondary); margin-bottom: 32px; max-width: 700px; }
+  .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 32px; margin-bottom: 20px; transition: box-shadow 0.2s; }
+  .card:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+  .card h3 { font-size: 18px; font-weight: 600; margin-bottom: 12px; color: var(--navy); }
+  .card p { color: var(--text-secondary); font-size: 14px; }
+  .metric-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 24px 0; }
+  .metric-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 24px 20px; text-align: center; }
+  .metric-card .number { font-size: 28px; font-weight: 700; color: var(--accent-blue); line-height: 1.2; }
+  .metric-card .label { font-size: 12px; color: var(--text-light); margin-top: 6px; line-height: 1.4; }
+  .insight { background: linear-gradient(135deg, #EFF6FF 0%, #F0F9FF 100%); border-left: 4px solid var(--accent-blue); border-radius: 0 10px 10px 0; padding: 24px 28px; margin: 28px 0; }
+  .insight p { font-size: 15px; color: var(--dark-blue); font-style: italic; line-height: 1.7; }
+  .insight .attribution { font-size: 12px; color: var(--text-light); font-style: normal; margin-top: 8px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .use-case-table { width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin: 24px 0; font-size: 14px; }
+  .use-case-table thead { background: var(--navy); color: white; }
+  .use-case-table th { padding: 14px 18px; text-align: left; font-weight: 600; font-size: 12px; letter-spacing: 0.5px; text-transform: uppercase; }
+  .use-case-table td { padding: 14px 18px; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
+  .use-case-table tr:last-child td { border-bottom: none; }
+  .use-case-table tr:nth-child(even) { background: #F8FAFC; }
+  .peer-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 28px; margin-bottom: 16px; position: relative; overflow: hidden; }
+  .peer-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(180deg, var(--accent-blue), var(--accent-teal)); }
+  .peer-card .peer-name { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .peer-card .peer-industry { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 12px; }
+  .peer-card .peer-metric { display: inline-block; background: #EFF6FF; color: var(--accent-blue); font-weight: 600; font-size: 13px; padding: 4px 12px; border-radius: 20px; margin: 4px 4px 4px 0; }
+  .value-row { display: grid; grid-template-columns: 200px 1fr; gap: 0; border-bottom: 1px solid var(--border); padding: 20px 0; }
+  .value-row:last-child { border-bottom: none; }
+  .value-label { font-weight: 600; color: var(--navy); font-size: 14px; padding-right: 24px; }
+  .value-desc { color: var(--text-secondary); font-size: 14px; }
+  .cta-section { background: linear-gradient(135deg, var(--navy) 0%, var(--dark-blue) 100%); color: white; padding: 56px 0; text-align: center; }
+  .cta-section h2 { font-size: 28px; font-weight: 700; margin-bottom: 12px; }
+  .cta-section p { color: rgba(255,255,255,0.7); max-width: 550px; margin: 0 auto 28px; font-size: 15px; }
+  .tag { display: inline-block; background: #EFF6FF; color: var(--accent-blue); font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 4px; letter-spacing: 0.5px; text-transform: uppercase; }
+  footer { background: var(--navy); color: rgba(255,255,255,0.4); padding: 32px 0; text-align: center; font-size: 12px; }
+  @media (max-width: 768px) { .hero h1 { font-size: 28px; } .metric-grid { grid-template-columns: repeat(2, 1fr); } .two-col { grid-template-columns: 1fr; } .value-row { grid-template-columns: 1fr; } .hero-meta { flex-direction: column; gap: 8px; } }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="container">
+    <div class="hero-label">Executive Perspective Brief</div>
+    <h1>Turning IQVIA's Data Advantage into an <span>Enterprise Intelligence</span> Advantage</h1>
+    <p class="hero-subtitle">A perspective on how the world's leading life sciences intelligence company can accelerate its AI-first strategy by unifying knowledge, scaling agentic workflows, and unlocking productivity across 93,000 employees.</p>
+    <div class="hero-meta">
+      <span>Prepared for IQVIA Leadership</span>
+      <span>March 2026</span>
+      <span>Confidential</span>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="section-label">Starting Point</div>
+    <div class="section-title">IQVIA Enters 2026 with Significant Momentum</div>
+    <p class="section-subtitle">Your leadership team has already articulated the right vision. The question we want to explore together is how enterprise-wide AI infrastructure can help you execute it faster.</p>
+    <div class="metric-grid">
+      <div class="metric-card"><div class="number">$16.3B</div><div class="label">FY2025 Revenue<br>(+5.9% YoY)</div></div>
+      <div class="metric-card"><div class="number">$32.7B</div><div class="label">R&DS Contracted<br>Backlog</div></div>
+      <div class="metric-card"><div class="number">150+</div><div class="label">AI Agents Deployed<br>Across Workflows</div></div>
+      <div class="metric-card"><div class="number">$17.2B</div><div class="label">2026 Revenue<br>Guidance (midpoint)</div></div>
+    </div>
+    <div class="insight">
+      <p>"IQVIA's expanded go-to-market strategy, operational discipline, and investments in AI innovations led to clear differentiation and strong topline growth for both the commercial business and the clinical business."</p>
+      <div class="attribution">Ari Bousbib, Chairman & CEO, Q4 2025 Earnings Call</div>
+    </div>
+    <p style="color: var(--text-secondary); font-size: 14px; margin-top: 16px;">Your CEO has framed AI as an opportunity rather than a threat, arguing that effective AI agentification in healthcare requires <strong>proprietary data at scale</strong>, <strong>deep domain expertise</strong>, and technology tools that can be acquired. That framing aligns precisely with how we see the enterprise AI landscape evolving. The companies that win will not be those with the best models. They will be those that connect the best models to the richest context.</p>
+  </div>
+</section>
+
+<section style="background: white;">
+  <div class="container">
+    <div class="section-label">The Opportunity</div>
+    <div class="section-title">Three Forces Shaping IQVIA's Next Chapter</div>
+    <p class="section-subtitle">Based on your public filings, commercial product roadmap, and stated priorities, we see three interconnected strategic imperatives where enterprise AI infrastructure creates outsized leverage.</p>
+    <div class="card">
+      <span class="tag">Force 1</span>
+      <h3 style="margin-top: 12px;">The Commercial Solutions Replatform</h3>
+      <p>Effective January 2026, IQVIA merged CSMS into TAS to form <strong>Commercial Solutions</strong> ($7.2B-$7.3B guided revenue). This is more than a reporting change. It signals an operating model shift toward integrated commercial engagement: data management, launch strategy, brand analytics, promotional engagement, and contract sales unified under one umbrella. Your commercial teams now need a single, permission-aware way to access knowledge across what were previously siloed business lines. That is a knowledge unification challenge at scale.</p>
+    </div>
+    <div class="card">
+      <span class="tag">Force 2</span>
+      <h3 style="margin-top: 12px;">The Agentic AI Imperative</h3>
+      <p>IQVIA has deployed 150+ AI agents across 30+ use cases and named AWS its preferred agentic cloud provider. You have invested in the IQVIA.ai Platform, launched the Medical Reasoning LLM (Med-R1 8B), and partnered with NVIDIA to build custom healthcare-grade AI agents. The ambition is right. The next question is: how do you scale agent deployment across 93,000 employees without requiring each team to build from scratch? The bottleneck is rarely the model. It is getting the right enterprise context into the agent at the right time.</p>
+    </div>
+    <div class="card">
+      <span class="tag">Force 3</span>
+      <h3 style="margin-top: 12px;">The Knowledge Fragmentation Tax</h3>
+      <p>IQVIA operates across clinical, commercial, and real-world evidence domains. Your teams navigate hundreds of internal systems, from Veeva Vault to SharePoint to proprietary analytics platforms. Every hour a field medical liaison spends searching for the latest brand strategy document, or a clinical operations lead spends tracking down a site-specific protocol deviation history, is an hour not spent on the work that drives your $32.7 billion backlog forward. Independent research shows knowledge workers lose 20-30% of their productive time to information retrieval. At IQVIA's scale, that represents thousands of FTEs worth of capacity.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label">Where We See Value</div>
+    <div class="section-title">Use Cases Mapped to IQVIA's Strategic Priorities</div>
+    <p class="section-subtitle">Rather than present a generic platform overview, we have mapped capabilities to the specific functions and challenges your teams are navigating today.</p>
+    <table class="use-case-table">
+      <thead><tr><th style="width:25%;">IQVIA Function</th><th style="width:35%;">Challenge</th><th style="width:40%;">How Enterprise AI Addresses It</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Commercial Analytics & Consulting</strong></td><td>Analysts synthesize insights from multiple data products, client communications, and competitive intelligence sources manually</td><td>A unified semantic layer connects all internal knowledge repositories so analysts surface relevant context in seconds, not hours. Agents can automate recurring analytics workflows.</td></tr>
+        <tr><td><strong>R&D Solutions / Clinical Ops</strong></td><td>Protocol deviations, site performance data, and enrollment signals live across disconnected systems</td><td>Permission-aware search across clinical trial management systems, email, and collaboration tools. Purpose-built agents for protocol Q&A, site issue triage, and enrollment monitoring.</td></tr>
+        <tr><td><strong>Launch Strategy & Brand Management</strong></td><td>Cross-functional launch teams need real-time access to competitive intelligence, HCP engagement data, and regulatory updates</td><td>A single conversational interface that retrieves and synthesizes launch playbooks, competitive analyses, and regulatory filings. Reduces launch preparation cycles.</td></tr>
+        <tr><td><strong>Medical Affairs / Real-World Evidence</strong></td><td>MSLs and RWE researchers need to rapidly access publication libraries, conference summaries, and treatment pathway data</td><td>AI-powered research assistant that understands medical context and retrieves from internal evidence libraries, reducing time-to-insight for field preparation.</td></tr>
+        <tr><td><strong>Safety & Pharmacovigilance</strong></td><td>Case processing teams navigate regulatory databases, adverse event histories, and SOPs scattered across quality systems</td><td>Intelligent search across safety databases with strict permission controls. Agents that accelerate case intake triage and SOP lookup.</td></tr>
+        <tr><td><strong>Employee Experience & Onboarding</strong></td><td>With ~93,000 employees across 100+ countries, onboarding and policy access at scale is a persistent operational drag</td><td>Enterprise-wide AI assistant for HR, IT, and benefits Q&A that deflects 20%+ of internal support requests and cuts new hire ramp time by weeks.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section style="background: white;">
+  <div class="container">
+    <div class="section-label">Peer Evidence</div>
+    <div class="section-title">How Similar Organizations Are Realizing Value</div>
+    <p class="section-subtitle">We work with organizations that share IQVIA's complexity: regulated industries, global scale, proprietary data moats, and a workforce that depends on fast access to trusted knowledge.</p>
+
+    <div class="peer-card">
+      <div class="peer-name">GSK</div>
+      <div class="peer-industry">Life Sciences / Pharmaceutical Manufacturing</div>
+      <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 12px;">One of the world's largest pharmaceutical companies selected Glean as their enterprise AI platform, deploying to <strong>75,000+ employees</strong>. Their global teams were hampered by information fragmentation, manual workarounds, and the inability to easily locate or share knowledge. GSK's initiative targets a <strong>3-5x P&L impact ($750M+)</strong> by eliminating data silos and enabling faster, more informed decisions in go-to-market and regulatory workflows. Glean powers their internal AI assistant "GiGi 2.0" across R&D, Medical, and Enterprise teams, with agentic workflows that help every employee "find the 25th hour" in their day.</p>
+      <span class="peer-metric">75K+ Users</span><span class="peer-metric">$750M+ P&L Target</span><span class="peer-metric">Enterprise Semantic Layer</span>
+    </div>
+
+    <div class="peer-card">
+      <div class="peer-name">Danaher</div>
+      <div class="peer-industry">Life Sciences & Diagnostics</div>
+      <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 12px;">A global leader in life sciences and diagnostics with <strong>63,000 employees</strong> across subsidiaries including Cepheid, Cytiva, and Beckman Coulter. Danaher is deploying Glean as "Project Danaher Brain" to reimagine the customer experience (driving revenue) and create an operational advantage (reducing opex). Their deployment model mirrors IQVIA's multi-entity structure, where knowledge must flow across operating companies while respecting data boundaries.</p>
+      <span class="peer-metric">63K Employees</span><span class="peer-metric">Multi-Entity Deployment</span><span class="peer-metric">Revenue + OpEx Impact</span>
+    </div>
+
+    <div class="peer-card">
+      <div class="peer-name">DaVita</div>
+      <div class="peer-industry">Healthcare / Kidney Care</div>
+      <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 12px;">The nation's largest kidney care provider deployed Glean to <strong>60,000 employees</strong> via their "Teammate Central" intranet, making it the enterprise AI knowledge layer for improving patient outcomes, operational efficiency, and G&A cost optimization. In their corporate deployment alone, they achieved <strong>$3M+ in annualized productivity gains</strong> with a 90% recommendation rate. Use cases span HR benefits chatbots, clinical learning assistants, and finance automation. Their CTO at Strive Health validated Glean by speaking directly with DaVita's CPO before signing.</p>
+      <span class="peer-metric">60K Users</span><span class="peer-metric">$3M+ Annual Gains</span><span class="peer-metric">90% Recommend</span>
+    </div>
+
+    <div class="peer-card">
+      <div class="peer-name">NVIDIA</div>
+      <div class="peer-industry">Technology / AI Infrastructure</div>
+      <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 12px;">NVIDIA, the world's most valuable technology company and IQVIA's own AI partner, made Glean an <strong>"enterprise standard"</strong> in their generative AI architecture. They repurposed 10 full-time engineers who had been building a homegrown search solution. Over the past 9 months: MAU up nearly 50%, DAU nearly 2x, power users 3x+. Jensen Huang highlighted Glean at CES 2025. NVIDIA is now evaluating Glean to power the knowledge layer of their new agentic-first intranet.</p>
+      <span class="peer-metric">Enterprise Standard</span><span class="peer-metric">200+ Agents Built</span><span class="peer-metric">10 FTEs Repurposed</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label">Independent Validation</div>
+    <div class="section-title">Measured Impact Across the Enterprise</div>
+    <p class="section-subtitle">Forrester Consulting conducted an independent Total Economic Impact study. These findings provide a conservative baseline for expected outcomes.</p>
+    <div class="metric-grid">
+      <div class="metric-card"><div class="number">141%</div><div class="label">ROI over 3 years</div></div>
+      <div class="metric-card"><div class="number">110 hrs</div><div class="label">Saved per user / year</div></div>
+      <div class="metric-card"><div class="number">93%</div><div class="label">Adoption within 2 years</div></div>
+      <div class="metric-card"><div class="number">20%</div><div class="label">Reduction in internal<br>support requests</div></div>
+    </div>
+    <div class="insight">
+      <p>At IQVIA's scale of ~93,000 employees, even conservative modeling of 50 hours saved per user per year translates to the equivalent of over 2,200 FTEs worth of recaptured capacity, representing hundreds of millions in productivity value annually.</p>
+    </div>
+  </div>
+</section>
+
+<section style="background: white;">
+  <div class="container">
+    <div class="section-label">Differentiation</div>
+    <div class="section-title">Why This Matters for IQVIA Specifically</div>
+    <p class="section-subtitle">The opportunity is not to replace your AI investments. It is to connect them through an enterprise knowledge layer that amplifies everything you have already built.</p>
+    <div class="card" style="border-left: 4px solid var(--accent-blue);">
+      <div class="value-row"><div class="value-label">Connector Depth</div><div class="value-desc">100+ native integrations including Veeva Vault, SharePoint, ServiceNow, Salesforce, Confluence, and Jira. At GSK, Veeva Vault connectivity was a non-negotiable requirement that Glean met while competitors could not. For IQVIA, this means connecting clinical trial management, pharmacovigilance, commercial analytics, and collaboration tools without custom engineering.</div></div>
+      <div class="value-row"><div class="value-label">Permission-Aware Search</div><div class="value-desc">Glean mirrors your existing access controls across every connected system. In a regulated environment where clinical data, patient information, and commercial intelligence carry different access levels, this is not a feature. It is a requirement. Every query returns only what the user is authorized to see.</div></div>
+      <div class="value-row"><div class="value-label">Enterprise Knowledge Graph</div><div class="value-desc">A continuously updated understanding of your organization: people, projects, expertise, and relationships. This makes search personal from day one and enables agents to reason over enterprise context rather than generic internet knowledge.</div></div>
+      <div class="value-row"><div class="value-label">Agentic Platform</div><div class="value-desc">No-code agent builder that allows any team to create purpose-built AI workflows without engineering support. NVIDIA has built 200+ agents. GSK is deploying "edge agents" to reach all 75,000+ employees. Your commercial, clinical, and compliance teams can each build agents tuned to their specific workflows while IT maintains governance.</div></div>
+      <div class="value-row"><div class="value-label">LLM Agnostic</div><div class="value-desc">Works with any foundation model: Google Gemini, OpenAI, Anthropic, or your own models like Med-R1 8B. As NVIDIA's Sr. Director of Engineering put it: "Glean's RAG architecture enables us to remain LLM agnostic and build unique experiences on top of the platform."</div></div>
+      <div class="value-row"><div class="value-label">Time to Value</div><div class="value-desc">Deploys in weeks, not months. T-Mobile cut call resolution time by 17 seconds within 30 days across 56,000 agents, saving $20M+. The platform is designed to deliver measurable impact within the first 90 days.</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label">Strategic Alignment</div>
+    <div class="section-title">Complementing, Not Competing With, Your AI Investments</div>
+    <p class="section-subtitle">IQVIA has a clear AI thesis. Glean strengthens it.</p>
+    <div class="two-col">
+      <div class="card"><h3>Your Thesis</h3><p>Effective AI agentification in healthcare requires <strong>proprietary data at scale</strong> and <strong>deep domain expertise</strong>, along with technology tools that can be acquired. IQVIA's data is curated, regulated, and difficult to replicate.</p></div>
+      <div class="card"><h3>How Glean Extends It</h3><p>Glean serves as the <strong>enterprise context layer</strong> that connects your proprietary data, domain-specific AI models, and employee workflows into a single, governed, searchable intelligence platform. Your data stays yours. Glean makes it accessible.</p></div>
+    </div>
+    <div class="two-col" style="margin-top: 20px;">
+      <div class="card"><h3>Your Investments</h3><p>IQVIA.ai Platform, 150+ deployed agents, NVIDIA partnership for healthcare-grade AI, AWS as preferred agentic cloud provider, Med-R1 8B medical reasoning model.</p></div>
+      <div class="card"><h3>The Gap We Fill</h3><p>Connecting those vertical AI investments horizontally across the enterprise. Giving every employee, from field MSLs to data scientists to commercial analysts, governed access to organizational knowledge through one interface, and the ability to build agents without engineering support.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-section">
+  <div class="container">
+    <h2>A Conversation, Not a Pitch</h2>
+    <p>We have built this perspective from the outside in. The most valuable next step would be a focused working session where your team can pressure-test these hypotheses against the realities of your environment, your systems, and your priorities.</p>
+    <p style="color: rgba(255,255,255,0.5); font-size: 13px; margin-top: 24px;">We are happy to arrange peer conversations with GSK, DaVita, or NVIDIA leadership to share their experiences firsthand.</p>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <p>Prepared by Glean | Confidential | March 2026</p>
+    <p style="margin-top: 8px;">IQVIA financial data sourced from public filings (Q4 2025 Earnings, February 5, 2026). Glean customer metrics from Forrester TEI Study and internal customer success data.</p>
+  </div>
+</footer>
+
+</body>
+</html>
